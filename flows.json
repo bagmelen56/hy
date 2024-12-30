@@ -28,8 +28,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 410,
-        "y": 80,
+        "x": 470,
+        "y": 60,
         "wires": [
             []
         ]
@@ -75,6 +75,18 @@
         "libs": [],
         "x": 540,
         "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2797612e74e81809",
+        "type": "status",
+        "z": "8cfc727d22e45b7b",
+        "name": "",
+        "scope": null,
+        "x": 430,
+        "y": 120,
         "wires": [
             []
         ]
