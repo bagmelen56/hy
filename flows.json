@@ -8,6 +8,170 @@
         "env": []
     },
     {
+        "id": "1e1882475c7e68a4",
+        "type": "tab",
+        "label": "Linky Raw",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ece408675f10c1f2",
+        "type": "mqtt-broker",
+        "name": "raspberry mosquitto",
+        "broker": "192.168.1.28",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "6c74ddb1e64af2fb",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "b8057ffb06f081d3",
+        "type": "ui_group",
+        "name": "Watts  instantané",
+        "tab": "6c74ddb1e64af2fb",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "09110bf672e0483b",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "creppcarbone",
+        "tz": "+00:00",
+        "charset": "UTF8"
+    },
+    {
+        "id": "74a301651cfd733f",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
         "id": "80a3800e15fadc49",
         "type": "inject",
         "z": "8cfc727d22e45b7b",
@@ -28,16 +192,304 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 470,
+        "x": 350,
         "y": 60,
         "wires": [
             []
         ]
     },
     {
-        "id": "1c5b2757a555b985",
+        "id": "fd8686041a5238bb",
+        "type": "delay",
+        "z": "1e1882475c7e68a4",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 810,
+        "y": 160,
+        "wires": [
+            [
+                "a0eaefa39f7387bb",
+                "6fbd908efa4e0cab",
+                "912807d2762304ea"
+            ]
+        ]
+    },
+    {
+        "id": "af5e35384c6a8fd3",
+        "type": "function",
+        "z": "1e1882475c7e68a4",
+        "name": "prepare sql",
+        "func": "msg = {};\nmsg.topic = 'SELECT time, etot FROM creppcarbone.linky ORDER BY time DESC LIMIT 1';\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1230,
+        "y": 520,
+        "wires": [
+            [
+                "ee778b748b798f30"
+            ]
+        ]
+    },
+    {
+        "id": "ee778b748b798f30",
+        "type": "mysql",
+        "z": "1e1882475c7e68a4",
+        "mydb": "09110bf672e0483b",
+        "name": "select previous",
+        "x": 1440,
+        "y": 520,
+        "wires": [
+            [
+                "03d6329176958f54",
+                "35f3407f8ec8ce6f"
+            ]
+        ]
+    },
+    {
+        "id": "a0eaefa39f7387bb",
+        "type": "function",
+        "z": "1e1882475c7e68a4",
+        "name": "set topic input",
+        "func": "msg.topic = \"input\";\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 220,
+        "wires": [
+            [
+                "ecb006d2e9c55216",
+                "4a621e2cd6cd9430"
+            ]
+        ]
+    },
+    {
+        "id": "03d6329176958f54",
+        "type": "function",
+        "z": "1e1882475c7e68a4",
+        "name": "transform",
+        "func": "if (msg.payload.length === 0) {\n    return {\n        topic: 'previous',\n        payload: {\n            etot: 0,\n            time: 0,\n        }\n    };\n}\n\nconst row = msg.payload[0];\nreturn {\n    topic: 'previous',\n    payload: {\n        etot: row.etot,\n        time: row.time,\n    }\n};\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1780,
+        "y": 520,
+        "wires": [
+            [
+                "4a621e2cd6cd9430"
+            ]
+        ]
+    },
+    {
+        "id": "6fbd908efa4e0cab",
+        "type": "function",
+        "z": "1e1882475c7e68a4",
+        "name": "get previous",
+        "func": "const [etot, time] = flow.get(['previous_etot', 'previous_time'])\n\nif (etot && time) {\n    return {\n        topic: 'previous',\n        payload: {\n            etot,\n            time,\n        }\n    };\n}\n\nreturn {\n    payload: null,\n};\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 300,
+        "wires": [
+            [
+                "73b569368485cb70",
+                "e3259a8f3a463763"
+            ]
+        ]
+    },
+    {
+        "id": "73b569368485cb70",
+        "type": "switch",
+        "z": "1e1882475c7e68a4",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            },
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1290,
+        "y": 360,
+        "wires": [
+            [
+                "7b32a85df512b5d9",
+                "400f75e501ea0e83",
+                "2bfeaa424f66d6ba",
+                "4a621e2cd6cd9430"
+            ],
+            [
+                "af5e35384c6a8fd3",
+                "ae19ececeef53b53"
+            ]
+        ]
+    },
+    {
+        "id": "35f3407f8ec8ce6f",
+        "type": "debug",
+        "z": "1e1882475c7e68a4",
+        "name": "sql output",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1600,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "7b32a85df512b5d9",
+        "type": "debug",
+        "z": "1e1882475c7e68a4",
+        "name": "prev_etot",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload.etot",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1540,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "400f75e501ea0e83",
+        "type": "debug",
+        "z": "1e1882475c7e68a4",
+        "name": "prev_time",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload.time",
+        "targetType": "msg",
+        "statusVal": "payload.time",
+        "statusType": "auto",
+        "x": 1540,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "2bfeaa424f66d6ba",
+        "type": "debug",
+        "z": "1e1882475c7e68a4",
+        "name": "flow context is not null",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1560,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "912807d2762304ea",
+        "type": "debug",
+        "z": "1e1882475c7e68a4",
+        "name": "input etot",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1400,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "ae19ececeef53b53",
+        "type": "debug",
+        "z": "1e1882475c7e68a4",
+        "name": "flow contexty is null",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1190,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "e3259a8f3a463763",
+        "type": "debug",
+        "z": "1e1882475c7e68a4",
+        "name": "topic previous",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "topic",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1200,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "3171918ea8cb57a5",
+        "type": "mysql",
+        "z": "1e1882475c7e68a4",
+        "mydb": "09110bf672e0483b",
+        "name": "insert etot",
+        "x": 2360,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b0477a6efc85ed21",
         "type": "inject",
-        "z": "8cfc727d22e45b7b",
+        "z": "1e1882475c7e68a4",
         "name": "",
         "props": [
             {
@@ -55,40 +507,573 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 310,
-        "y": 180,
+        "x": 1040,
+        "y": 640,
+        "wires": [
+            [
+                "88c3bcbcc06e1408"
+            ]
+        ]
+    },
+    {
+        "id": "88c3bcbcc06e1408",
+        "type": "change",
+        "z": "1e1882475c7e68a4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "previous_totalCO2cons",
+                "pt": "flow",
+                "to": "3",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1290,
+        "y": 640,
         "wires": [
             []
         ]
     },
     {
-        "id": "4243a353ecc43f45",
+        "id": "1302cff22c168a27",
+        "type": "ui_artlessgauge2",
+        "z": "1e1882475c7e68a4",
+        "group": "b8057ffb06f081d3",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "name": "linky",
+        "icon": "iconify-mdi:pylon 48px",
+        "label": "linky",
+        "unit": "Watts",
+        "layout": "radial",
+        "decimals": 0,
+        "differential": false,
+        "minmax": true,
+        "colorTrack": "#555555",
+        "style": "1",
+        "colorFromTheme": true,
+        "property": "payload",
+        "secondary": "secondary",
+        "inline": false,
+        "animate": true,
+        "log2": false,
+        "sectors": [
+            {
+                "val": 0,
+                "col": "#ff9900",
+                "t": "min",
+                "dot": 0
+            },
+            {
+                "val": 10000,
+                "col": "#ff9900",
+                "t": "max",
+                "dot": 0
+            }
+        ],
+        "lineWidth": 3,
+        "bgcolorFromTheme": false,
+        "diffCenter": "",
+        "x": 730,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "ea4f7cafaa434b4b",
+        "type": "mqtt in",
+        "z": "1e1882475c7e68a4",
+        "name": "mqtt linky lixee",
+        "topic": "zigbee2mqtt/0x00158d00062038f4",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "ece408675f10c1f2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 320,
+        "wires": [
+            [
+                "ac976aeec2a880bd",
+                "edb5965d30ed4d00",
+                "da222be989a7dd32",
+                "bdf80ea2bb298775",
+                "d70a3b268379ad19",
+                "f2df1e9809683376"
+            ]
+        ]
+    },
+    {
+        "id": "ac976aeec2a880bd",
+        "type": "debug",
+        "z": "1e1882475c7e68a4",
+        "name": "linky lixee",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 300,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "544361307ef8ad40",
+        "type": "debug",
+        "z": "1e1882475c7e68a4",
+        "name": "apparent_power",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 560,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "edb5965d30ed4d00",
         "type": "function",
-        "z": "8cfc727d22e45b7b",
-        "name": "function 1",
-        "func": "\nreturn msg;",
+        "z": "1e1882475c7e68a4",
+        "name": "apparent_power",
+        "func": "msg.payload = msg.payload.apparent_power;\n//msg.payload = msg.payload.ENERGY.Power.slice(7, 12);\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 540,
-        "y": 220,
+        "x": 380,
+        "y": 400,
+        "wires": [
+            [
+                "544361307ef8ad40",
+                "1302cff22c168a27",
+                "508c23cc42f4af2d"
+            ]
+        ]
+    },
+    {
+        "id": "da222be989a7dd32",
+        "type": "function",
+        "z": "1e1882475c7e68a4",
+        "name": "current_summ_delivered",
+        "func": "msg.payload = msg.payload.current_summ_delivered*1000;\n//msg.payload = msg.payload.ENERGY.Power.slice(7, 12);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 260,
+        "wires": [
+            [
+                "114f3b498cfa1f7b",
+                "912807d2762304ea",
+                "6fbd908efa4e0cab",
+                "a0eaefa39f7387bb"
+            ]
+        ]
+    },
+    {
+        "id": "ecb006d2e9c55216",
+        "type": "debug",
+        "z": "1e1882475c7e68a4",
+        "name": "inputt",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1730,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "114f3b498cfa1f7b",
+        "type": "debug",
+        "z": "1e1882475c7e68a4",
+        "name": "total power",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 750,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "4a621e2cd6cd9430",
+        "type": "function",
+        "z": "1e1882475c7e68a4",
+        "name": "calcul CO2 revu",
+        "func": "  var frprod =global.get(\"FR.prod\"); \n  var frco2=  global.get(\"FR.co2\");\n    var deprod =global.get(\"DE.prod\"); \n  var deco2=  global.get(\"DE.co2\");\n    var atprod =global.get(\"AT.prod\"); \n  var atco2=  global.get(\"AT.co2\");\n  var czprod =global.get(\"CZ.prod\"); \n  var czco2=  global.get(\"CZ.co2\");\n    var gbprod =global.get(\"GB.prod\"); \n  var gbco2=  global.get(\"GB.co2\");\n    var esprod =global.get(\"ES.prod\"); \n  var esco2=  global.get(\"ES.co2\");\n  var itprod =global.get(\"IT.prod\"); \n  var itco2=  global.get(\"IT.co2\");\n    var plprod =global.get(\"PL.prod\"); \n  var plco2=  global.get(\"PL.co2\");\nvar euprod= frprod+deprod+atprod+czprod+gbprod+esprod+itprod+plprod ;\nvar euco2= frco2+deco2+atco2+czco2+gbco2+esco2+itco2+plco2;\nvar facteurco2 =euco2/euprod;\n\n\n\n// Record both inputs\ncontext.data = context.data || {};\nswitch (msg.topic) {\n    case \"input\":\n        context.data.input = msg.payload;\n        break;\n    case \"previous\":\n        context.data.previous = msg.payload;\n        break;\n    default:\n        node.warn(`Unknown topic ${msg.topic}`);\n}\nmsg = null;\n\n// Run if both inputs received\nif (context.data.input && context.data.previous) {\n    const etot = context.data.input;\n    const time = new Date()\n    const previous_etot = context.data.previous.etot;\n    const previous_time = context.data.previous.time;\n    const cO2cons = (etot-previous_etot)*facteurco2;\n    const facCO2 = facteurco2;\n\n    flow.set('previous_etot', etot);\n    flow.set('previous_time', time);\n    context.data = {};\n    if (etot > previous_etot){\n\n      return {\n          payload: {\n              time: time,\n              etot: etot,\n              econs: etot - previous_etot,\n              previous_time: previous_time,\n              cO2cons: cO2cons,\n              facCO2: facCO2\n                  },\n      \n\n          topic: 'INSERT INTO creppcarbone.linky (`time`, `previous_time`, `etot`, `econs`,`cO2cons`,`factCO2`) VALUES (:time, :previous_time, :etot, :econs, :cO2cons, :facCO2);'\n          }\n    };\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1940,
+        "y": 380,
+        "wires": [
+            [
+                "77c87053d61ad404"
+            ]
+        ]
+    },
+    {
+        "id": "508c23cc42f4af2d",
+        "type": "ui_chart",
+        "z": "1e1882475c7e68a4",
+        "name": "linky",
+        "group": "b8057ffb06f081d3",
+        "order": 4,
+        "width": 6,
+        "height": 3,
+        "label": "linky",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 850,
+        "y": 400,
         "wires": [
             []
         ]
     },
     {
-        "id": "2797612e74e81809",
-        "type": "status",
-        "z": "8cfc727d22e45b7b",
-        "name": "",
-        "scope": null,
-        "x": 430,
-        "y": 120,
+        "id": "6b612d60876b1b29",
+        "type": "mysql",
+        "z": "1e1882475c7e68a4",
+        "d": true,
+        "mydb": "09110bf672e0483b",
+        "name": "insert etot",
+        "x": 460,
+        "y": 580,
         "wires": [
             []
         ]
+    },
+    {
+        "id": "f2df1e9809683376",
+        "type": "function",
+        "z": "1e1882475c7e68a4",
+        "d": true,
+        "name": "chargement linky lixee",
+        "func": " var active_energy_out_d01 = msg.payload.active_energy_out_d01;\n var active_energy_out_d02 = msg.payload.active_energy_out_d02;\n var active_power = msg.payload.active_power;\n var apparent_power = msg.payload.apparent_power;\n var current_summ_delivered= msg.payload.current_summ_delivered;\n //var current_price =msg.payload.current_price.replace('HEURE','');\n var current_price = 20;\n if (msg.payload.current_price.match('PLEINE')) current_price=27;\n\nvar query = \"INSERT INTO linky_raw (active_energy_out_d01, active_energy_out_d02,active_power,apparent_power,current_summ_delivered,current_price) VALUES (\" + active_energy_out_d01 + \" ,\" + active_energy_out_d02 + \",\" + active_power + \",\" + apparent_power + \",\"+ current_summ_delivered + \",\"+ current_price + \")\";\nmsg.topic = query;\n\n \n         \n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 200,
+        "y": 580,
+        "wires": [
+            [
+                "6b612d60876b1b29",
+                "2f21bdebfda36e2c"
+            ]
+        ]
+    },
+    {
+        "id": "2f21bdebfda36e2c",
+        "type": "debug",
+        "z": "1e1882475c7e68a4",
+        "d": true,
+        "name": "linky_raw",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 400,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "bdf80ea2bb298775",
+        "type": "function",
+        "z": "1e1882475c7e68a4",
+        "name": "apparent_power",
+        "func": "msg.payload = msg.payload.current_date;\n//msg.payload = msg.payload.ENERGY.Power.slice(7, 12);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 460,
+        "wires": [
+            [
+                "f272fd1915cdacb2"
+            ]
+        ]
+    },
+    {
+        "id": "f272fd1915cdacb2",
+        "type": "debug",
+        "z": "1e1882475c7e68a4",
+        "name": "current date",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 590,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "49cee46db59516c0",
+        "type": "delay",
+        "z": "1e1882475c7e68a4",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 430,
+        "y": 660,
+        "wires": [
+            [
+                "0c373af943e4af8e",
+                "7d757f1304d9fd63"
+            ]
+        ]
+    },
+    {
+        "id": "0c373af943e4af8e",
+        "type": "mysql",
+        "z": "1e1882475c7e68a4",
+        "mydb": "09110bf672e0483b",
+        "name": "insert etot",
+        "x": 620,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d70a3b268379ad19",
+        "type": "function",
+        "z": "1e1882475c7e68a4",
+        "name": "chargement linky raw eco",
+        "func": " //var active_energy_out_d01 = msg.payload.active_energy_out_d01;\n //var active_energy_out_d02 = msg.payload.active_energy_out_d02;\n //var active_power = msg.payload.active_power;\n var apparent_power = msg.payload.apparent_power;\n //var current_summ_delivered= msg.payload.current_summ_delivered;\n //var current_price =msg.payload.current_price.replace('HEURE','');\n var current_price = 20;\n// if (msg.payload.current_price.match('PLEINE')) current_price=27;\n\nvar query = \"INSERT INTO linky_raw_eco ( apparent_power ) VALUES ( \" + apparent_power +   \")\";\nmsg.topic = query;\n\n \n         \n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 150,
+        "y": 660,
+        "wires": [
+            [
+                "49cee46db59516c0"
+            ]
+        ]
+    },
+    {
+        "id": "77c87053d61ad404",
+        "type": "delay",
+        "z": "1e1882475c7e68a4",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2130,
+        "y": 380,
+        "wires": [
+            [
+                "3171918ea8cb57a5"
+            ]
+        ]
+    },
+    {
+        "id": "57f0728e8c2dbfe9",
+        "type": "e-mail",
+        "z": "1e1882475c7e68a4",
+        "server": "smtp.free.fr",
+        "port": "465",
+        "authtype": "BASIC",
+        "saslformat": true,
+        "token": "oauth2Response.access_token",
+        "secure": true,
+        "tls": true,
+        "name": "julienbourgeois56@free.fr",
+        "dname": "",
+        "x": 1020,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "ef6a5f4f899b1665",
+        "type": "ui_text",
+        "z": "1e1882475c7e68a4",
+        "group": "b8057ffb06f081d3",
+        "order": 6,
+        "width": 2,
+        "height": 2,
+        "name": "bureau Julien",
+        "label": "iconify-ic:baseline-solar-power 48px",
+        "format": "{{msg.payload.occupancy}}",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 500,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "548429de878b6294",
+        "type": "mqtt in",
+        "z": "1e1882475c7e68a4",
+        "name": "mqtt presence bureau Julien",
+        "topic": "zigbee2mqtt/PresenceBureauJulien",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "ece408675f10c1f2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 80,
+        "wires": [
+            [
+                "aa1c0a840f75e3b5",
+                "ef6a5f4f899b1665"
+            ]
+        ]
+    },
+    {
+        "id": "aa1c0a840f75e3b5",
+        "type": "debug",
+        "z": "1e1882475c7e68a4",
+        "name": "presence",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload.occupancy",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 480,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "ba70b988ee9c54ad",
+        "type": "ui_template",
+        "z": "1e1882475c7e68a4",
+        "group": "b8057ffb06f081d3",
+        "name": "template icone",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "format": "<script src=\"https://code.iconify.design/1/1.0.7/iconify.min.js\"></script>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 720,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7d757f1304d9fd63",
+        "type": "debug",
+        "z": "1e1882475c7e68a4",
+        "name": "insert",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 740,
+        "wires": []
     }
 ]

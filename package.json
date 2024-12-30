@@ -2,7 +2,9 @@
     "name": "jul",
     "description": "big one",
     "version": "0.0.1",
-    "dependencies": {},
+    "dependencies": {
+        "node-red-dashboard": "3.6.5"
+    },
     "node-red": {
         "settings": {
             "flowFile": "flows.json",
