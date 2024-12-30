@@ -16,6 +16,14 @@
         "env": []
     },
     {
+        "id": "8b2bc5a38cf3f145",
+        "type": "tab",
+        "label": "enregist. prises TASMOTA",
+        "disabled": false,
+        "info": "mqtt de la prise pilotée vers la base de donnée",
+        "env": []
+    },
+    {
         "id": "ece408675f10c1f2",
         "type": "mqtt-broker",
         "name": "raspberry pi3 mosquitto",
@@ -49,7 +57,7 @@
     {
         "id": "6c74ddb1e64af2fb",
         "type": "ui_tab",
-        "name": "Home",
+        "name": "tableau de bord",
         "icon": "dashboard",
         "disabled": false,
         "hidden": false
@@ -74,7 +82,8 @@
                 "default": "#0094CE",
                 "baseColor": "#0094CE",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": false
+                "edited": true,
+                "reset": false
             },
             "darkTheme": {
                 "default": "#097479",
@@ -170,6 +179,34 @@
         "db": "creppcarbone",
         "tz": "+00:00",
         "charset": "UTF8"
+    },
+    {
+        "id": "f448c91c09f9275b",
+        "type": "mqtt-broker",
+        "name": "mqtt yoga",
+        "broker": "192.168.1.25",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
     },
     {
         "id": "80a3800e15fadc49",
@@ -1074,6 +1111,715 @@
         "dname": "",
         "x": 1020,
         "y": 60,
+        "wires": []
+    },
+    {
+        "id": "397fa33b8c29d008",
+        "type": "mqtt in",
+        "z": "8b2bc5a38cf3f145",
+        "d": true,
+        "name": "",
+        "topic": "tele/tasmota_179AB0/SENSOR",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "f448c91c09f9275b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "76bf4d039fa7e8c0",
+        "type": "delay",
+        "z": "8b2bc5a38cf3f145",
+        "name": "toutes les 5 minutes",
+        "pauseType": "rate",
+        "timeout": "15",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 580,
+        "y": 80,
+        "wires": [
+            [
+                "4f8f2a81a2c1a3ab",
+                "e90b2187ae385d16",
+                "1e3184219c8b4898",
+                "c4e134f97f7fae56"
+            ]
+        ]
+    },
+    {
+        "id": "4f8f2a81a2c1a3ab",
+        "type": "function",
+        "z": "8b2bc5a38cf3f145",
+        "name": " query panneau",
+        "func": "var P1 = msg.payload.Time;\nvar P8 = msg.payload.ENERGY.Power;\nvar P9 = msg.payload.ENERGY.Today;\nvar P10 =msg.payload.ENERGY.Total;\nvar P13 =msg.payload.ENERGY.Yesterday;\nvar P14 = 0;\nvar P15 = 0;\nP1=new Date(P1);\n\nmsg.payload = {\n    time: P1,\n};\nvar query = \"INSERT INTO panneausolaire (time,activepower,energytoday,energytotal,previous_time,energycons) VALUES (:time ,\" + P8 + \", \" + P9 + \", \" + P10 + \",:time ,\" + P14 + \")\";\nmsg.topic = query;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 80,
+        "wires": [
+            [
+                "3cae88c92b6b97e5"
+            ]
+        ]
+    },
+    {
+        "id": "349664f2c5aa8341",
+        "type": "mysql",
+        "z": "8b2bc5a38cf3f145",
+        "d": true,
+        "mydb": "09110bf672e0483b",
+        "name": "insert panneau",
+        "x": 1220,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d5b90f2d985984e8",
+        "type": "mqtt in",
+        "z": "8b2bc5a38cf3f145",
+        "d": true,
+        "name": "",
+        "topic": "tele/tasmota_8336B4/SENSOR",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "f448c91c09f9275b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3c0a7cb4f10a6589",
+        "type": "delay",
+        "z": "8b2bc5a38cf3f145",
+        "name": "toutes les 5 minutes",
+        "pauseType": "rate",
+        "timeout": "15",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 640,
+        "y": 680,
+        "wires": [
+            [
+                "10de44c86ac36e0d"
+            ]
+        ]
+    },
+    {
+        "id": "10de44c86ac36e0d",
+        "type": "function",
+        "z": "8b2bc5a38cf3f145",
+        "name": " query prise_one",
+        "func": "var P1 = msg.payload.Time;\nvar P8 = msg.payload.ENERGY.Power;\nvar P9 = msg.payload.ENERGY.Today;\nvar P10 =msg.payload.ENERGY.Total;\nvar P13 =msg.payload.ENERGY.Yesterday;\n\nP1=new Date(P1);\n\nmsg.payload = {\n    time: P1,\n};\nvar query = \"INSERT INTO prise_one (time,activepower,energytoday,energytotal) VALUES (:time ,\" + P8 + \", \" + P9 + \", \" + P10 + \")\";\nmsg.topic = query;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 680,
+        "wires": [
+            [
+                "e8fd4f1d105f9737"
+            ]
+        ]
+    },
+    {
+        "id": "e8fd4f1d105f9737",
+        "type": "mysql",
+        "z": "8b2bc5a38cf3f145",
+        "mydb": "09110bf672e0483b",
+        "name": "insert prise_one",
+        "x": 1120,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1e3184219c8b4898",
+        "type": "function",
+        "z": "8b2bc5a38cf3f145",
+        "name": "get previous",
+        "func": "const [energytotal, time] = flow.get(['previous_energytotal', 'previous_time'])\n\nif (energytotal && time) {\n    return {\n        topic: 'previous',\n        payload: {\n            energytotal,\n            time,\n        }\n    };\n}\n\nreturn {\n    payload: null,\n};\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 260,
+        "wires": [
+            [
+                "56cd7a28b367dc9a"
+            ]
+        ]
+    },
+    {
+        "id": "56cd7a28b367dc9a",
+        "type": "switch",
+        "z": "8b2bc5a38cf3f145",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            },
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 630,
+        "y": 400,
+        "wires": [
+            [
+                "b638e39b46a25a62",
+                "67c8bfc7745c9954",
+                "699125d777addb71",
+                "b775a5e075448a11"
+            ],
+            [
+                "bfeef8ec6bd68fa1",
+                "b6c059b8d0615604"
+            ]
+        ]
+    },
+    {
+        "id": "e90b2187ae385d16",
+        "type": "debug",
+        "z": "8b2bc5a38cf3f145",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 460,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "b638e39b46a25a62",
+        "type": "debug",
+        "z": "8b2bc5a38cf3f145",
+        "name": "previous_time",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload.time",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1140,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "67c8bfc7745c9954",
+        "type": "debug",
+        "z": "8b2bc5a38cf3f145",
+        "name": "previous energy",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload.energytotal",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 940,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "bfeef8ec6bd68fa1",
+        "type": "function",
+        "z": "8b2bc5a38cf3f145",
+        "name": "prepare sql",
+        "func": "msg = {};\nmsg.topic = 'SELECT time, energytotal FROM creppcarbone.panneausolaire ORDER BY time DESC LIMIT 1';\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 480,
+        "wires": [
+            [
+                "8d83cfee66293605"
+            ]
+        ]
+    },
+    {
+        "id": "8d83cfee66293605",
+        "type": "mysql",
+        "z": "8b2bc5a38cf3f145",
+        "mydb": "09110bf672e0483b",
+        "name": "select previous",
+        "x": 1180,
+        "y": 440,
+        "wires": [
+            [
+                "33754bba7db59316",
+                "629c40c25bb80fe3"
+            ]
+        ]
+    },
+    {
+        "id": "b6c059b8d0615604",
+        "type": "debug",
+        "z": "8b2bc5a38cf3f145",
+        "name": "vide",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 770,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "33754bba7db59316",
+        "type": "debug",
+        "z": "8b2bc5a38cf3f145",
+        "name": "sql output",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1400,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "629c40c25bb80fe3",
+        "type": "function",
+        "z": "8b2bc5a38cf3f145",
+        "name": "transform",
+        "func": "if (msg.payload.length === 0) {\n    return {\n        topic: 'previous',\n        payload: {\n            energytotal: 0,\n            time: 0,\n        }\n    };\n}\n\nconst row = msg.payload[0];\nreturn {\n    topic: 'previous',\n    payload: {\n        energytotal: row.energytotal,\n        time: row.time,\n    }\n};\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
+        "y": 280,
+        "wires": [
+            [
+                "699125d777addb71",
+                "dc3cfead3213e1f9"
+            ]
+        ]
+    },
+    {
+        "id": "699125d777addb71",
+        "type": "function",
+        "z": "8b2bc5a38cf3f145",
+        "name": "prepare sql",
+        "func": "// Record both inputs\ncontext.data = context.data || {};\nswitch (msg.topic) {\n    case \"input\":\n        context.data.input = msg.payload;\n        break;\n    case \"previous\":\n        context.data.previous = msg.payload;\n        break;\n    default:\n        node.warn(`Unknown topic ${msg.topic}`);\n}\nmsg = null;\n\n// Run if both inputs received\nif (context.data.input && context.data.previous) {\n    const energytotal = context.data.input.ENERGY.Total;\n    const energytoday = context.data.input.ENERGY.Today;\n    const power = context.data.input.ENERGY.Power;\n    const time = new Date();\n    const previous_energytotal= context.data.previous.energytotal;\n    const previous_time = context.data.previous.time;\n\n    flow.set('previous_energytotal', energytotal);\n    flow.set('previous_time', time);\n    context.data = {};\n\n    return {\n        payload: {\n            time: time,\n            energytotal: energytotal,\n            energytoday: energytoday,\n            energycons: energytotal - previous_energytotal,\n            previous_time: previous_time,\n            power:power,\n        },\n        topic: 'INSERT INTO creppcarbone.panneausolaire (`time`, `previous_time`, `energytotal`, `energytoday`, `energycons`, `activepower` ) VALUES (:time, :previous_time, :energytotal, :energytoday, :energycons, :power );'\n    };\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1530,
+        "y": 160,
+        "wires": [
+            [
+                "fab10e86bc4ecc15",
+                "b288031a14a4fcb3"
+            ]
+        ]
+    },
+    {
+        "id": "c4e134f97f7fae56",
+        "type": "function",
+        "z": "8b2bc5a38cf3f145",
+        "name": "set topic",
+        "func": "msg.topic = \"input\";\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 160,
+        "wires": [
+            [
+                "699125d777addb71",
+                "aab377bae06270e2"
+            ]
+        ]
+    },
+    {
+        "id": "b288031a14a4fcb3",
+        "type": "mysql",
+        "z": "8b2bc5a38cf3f145",
+        "mydb": "09110bf672e0483b",
+        "name": "insert panneau",
+        "x": 1960,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dc3cfead3213e1f9",
+        "type": "debug",
+        "z": "8b2bc5a38cf3f145",
+        "name": "debug transform",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1590,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "fab10e86bc4ecc15",
+        "type": "debug",
+        "z": "8b2bc5a38cf3f145",
+        "name": "debug prepare sql",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1750,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "253233c1e24d8d91",
+        "type": "inject",
+        "z": "8b2bc5a38cf3f145",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 660,
+        "y": 480,
+        "wires": [
+            [
+                "bfeef8ec6bd68fa1"
+            ]
+        ]
+    },
+    {
+        "id": "b775a5e075448a11",
+        "type": "debug",
+        "z": "8b2bc5a38cf3f145",
+        "name": "swich",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "aab377bae06270e2",
+        "type": "debug",
+        "z": "8b2bc5a38cf3f145",
+        "name": "debug  input",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "3cae88c92b6b97e5",
+        "type": "debug",
+        "z": "8b2bc5a38cf3f145",
+        "name": "old insert",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "db9c8c88b209a0ea",
+        "type": "mqtt in",
+        "z": "8b2bc5a38cf3f145",
+        "name": "raspb tasmota panneau solaire",
+        "topic": "tele/tasmota_179AB0/SENSOR",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "ece408675f10c1f2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 120,
+        "wires": [
+            [
+                "76bf4d039fa7e8c0",
+                "609030d9f05f38d0",
+                "ea1202d75ce97a19"
+            ]
+        ]
+    },
+    {
+        "id": "6d2a354d6af7a096",
+        "type": "mqtt in",
+        "z": "8b2bc5a38cf3f145",
+        "name": "rasp prise 1 appareil sensor",
+        "topic": "tele/tasmota_8336B4/SENSOR",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "ece408675f10c1f2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 680,
+        "wires": [
+            [
+                "3c0a7cb4f10a6589",
+                "48d85130ed365ed9"
+            ]
+        ]
+    },
+    {
+        "id": "609030d9f05f38d0",
+        "type": "debug",
+        "z": "8b2bc5a38cf3f145",
+        "name": "tasmota solaire",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 440,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "48d85130ed365ed9",
+        "type": "debug",
+        "z": "8b2bc5a38cf3f145",
+        "name": "debug 4",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 400,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "ea1202d75ce97a19",
+        "type": "function",
+        "z": "8b2bc5a38cf3f145",
+        "name": "extract number",
+        "func": "msg.payload = msg.payload.ENERGY.Power;\n//msg.payload = msg.payload.ENERGY.Power.slice(7, 12);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 20,
+        "wires": [
+            [
+                "f6d87cfef5ff7083",
+                "5147630869218f93"
+            ]
+        ]
+    },
+    {
+        "id": "f6d87cfef5ff7083",
+        "type": "ui_chart",
+        "z": "8b2bc5a38cf3f145",
+        "name": "panneau solaire",
+        "group": "b8057ffb06f081d3",
+        "order": 3,
+        "width": 6,
+        "height": 3,
+        "label": "panneau solaire",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "12",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 380,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5147630869218f93",
+        "type": "ui_artlessgauge2",
+        "z": "8b2bc5a38cf3f145",
+        "group": "b8057ffb06f081d3",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "name": "panneau sol",
+        "icon": "iconify-ic:baseline-solar-power 48px",
+        "label": "panneau sol",
+        "unit": "Watts",
+        "layout": "radial",
+        "decimals": 0,
+        "differential": false,
+        "minmax": true,
+        "colorTrack": "#555555",
+        "style": "1",
+        "colorFromTheme": true,
+        "property": "payload",
+        "secondary": "secondary",
+        "inline": false,
+        "animate": true,
+        "log2": false,
+        "sectors": [
+            {
+                "val": 0,
+                "col": "#ff9900",
+                "t": "min",
+                "dot": 0
+            },
+            {
+                "val": 10000,
+                "col": "#ff9900",
+                "t": "max",
+                "dot": 0
+            }
+        ],
+        "lineWidth": 3,
+        "bgcolorFromTheme": false,
+        "diffCenter": "",
+        "x": 410,
+        "y": 480,
         "wires": []
     }
 ]
