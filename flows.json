@@ -18,7 +18,7 @@
     {
         "id": "ece408675f10c1f2",
         "type": "mqtt-broker",
-        "name": "raspberry mosquitto",
+        "name": "raspberry pi3 mosquitto",
         "broker": "192.168.1.28",
         "port": "1883",
         "clientid": "",
@@ -64,16 +64,6 @@
         "width": "6",
         "collapse": false,
         "className": ""
-    },
-    {
-        "id": "09110bf672e0483b",
-        "type": "MySQLdatabase",
-        "name": "",
-        "host": "127.0.0.1",
-        "port": "3306",
-        "db": "creppcarbone",
-        "tz": "+00:00",
-        "charset": "UTF8"
     },
     {
         "id": "74a301651cfd733f",
@@ -172,6 +162,16 @@
         }
     },
     {
+        "id": "09110bf672e0483b",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "creppcarbone",
+        "tz": "+00:00",
+        "charset": "UTF8"
+    },
+    {
         "id": "80a3800e15fadc49",
         "type": "inject",
         "z": "8cfc727d22e45b7b",
@@ -242,21 +242,6 @@
         "wires": [
             [
                 "ee778b748b798f30"
-            ]
-        ]
-    },
-    {
-        "id": "ee778b748b798f30",
-        "type": "mysql",
-        "z": "1e1882475c7e68a4",
-        "mydb": "09110bf672e0483b",
-        "name": "select previous",
-        "x": 1440,
-        "y": 520,
-        "wires": [
-            [
-                "03d6329176958f54",
-                "35f3407f8ec8ce6f"
             ]
         ]
     },
@@ -475,18 +460,6 @@
         "wires": []
     },
     {
-        "id": "3171918ea8cb57a5",
-        "type": "mysql",
-        "z": "1e1882475c7e68a4",
-        "mydb": "09110bf672e0483b",
-        "name": "insert etot",
-        "x": 2360,
-        "y": 380,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "b0477a6efc85ed21",
         "type": "inject",
         "z": "1e1882475c7e68a4",
@@ -539,51 +512,6 @@
         "wires": [
             []
         ]
-    },
-    {
-        "id": "1302cff22c168a27",
-        "type": "ui_artlessgauge2",
-        "z": "1e1882475c7e68a4",
-        "group": "b8057ffb06f081d3",
-        "order": 1,
-        "width": 3,
-        "height": 3,
-        "name": "linky",
-        "icon": "iconify-mdi:pylon 48px",
-        "label": "linky",
-        "unit": "Watts",
-        "layout": "radial",
-        "decimals": 0,
-        "differential": false,
-        "minmax": true,
-        "colorTrack": "#555555",
-        "style": "1",
-        "colorFromTheme": true,
-        "property": "payload",
-        "secondary": "secondary",
-        "inline": false,
-        "animate": true,
-        "log2": false,
-        "sectors": [
-            {
-                "val": 0,
-                "col": "#ff9900",
-                "t": "min",
-                "dot": 0
-            },
-            {
-                "val": 10000,
-                "col": "#ff9900",
-                "t": "max",
-                "dot": 0
-            }
-        ],
-        "lineWidth": 3,
-        "bgcolorFromTheme": false,
-        "diffCenter": "",
-        "x": 730,
-        "y": 400,
-        "wires": []
     },
     {
         "id": "ea4f7cafaa434b4b",
@@ -789,19 +717,6 @@
         ]
     },
     {
-        "id": "6b612d60876b1b29",
-        "type": "mysql",
-        "z": "1e1882475c7e68a4",
-        "d": true,
-        "mydb": "09110bf672e0483b",
-        "name": "insert etot",
-        "x": 460,
-        "y": 580,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "f2df1e9809683376",
         "type": "function",
         "z": "1e1882475c7e68a4",
@@ -905,18 +820,6 @@
         ]
     },
     {
-        "id": "0c373af943e4af8e",
-        "type": "mysql",
-        "z": "1e1882475c7e68a4",
-        "mydb": "09110bf672e0483b",
-        "name": "insert etot",
-        "x": 620,
-        "y": 660,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "d70a3b268379ad19",
         "type": "function",
         "z": "1e1882475c7e68a4",
@@ -960,23 +863,6 @@
                 "3171918ea8cb57a5"
             ]
         ]
-    },
-    {
-        "id": "57f0728e8c2dbfe9",
-        "type": "e-mail",
-        "z": "1e1882475c7e68a4",
-        "server": "smtp.free.fr",
-        "port": "465",
-        "authtype": "BASIC",
-        "saslformat": true,
-        "token": "oauth2Response.access_token",
-        "secure": true,
-        "tls": true,
-        "name": "julienbourgeois56@free.fr",
-        "dname": "",
-        "x": 1020,
-        "y": 60,
-        "wires": []
     },
     {
         "id": "ef6a5f4f899b1665",
@@ -1074,6 +960,120 @@
         "statusType": "auto",
         "x": 610,
         "y": 740,
+        "wires": []
+    },
+    {
+        "id": "ee778b748b798f30",
+        "type": "mysql",
+        "z": "1e1882475c7e68a4",
+        "mydb": "09110bf672e0483b",
+        "name": "select previous",
+        "x": 1440,
+        "y": 520,
+        "wires": [
+            [
+                "03d6329176958f54",
+                "35f3407f8ec8ce6f"
+            ]
+        ]
+    },
+    {
+        "id": "3171918ea8cb57a5",
+        "type": "mysql",
+        "z": "1e1882475c7e68a4",
+        "mydb": "09110bf672e0483b",
+        "name": "insert etot",
+        "x": 2360,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6b612d60876b1b29",
+        "type": "mysql",
+        "z": "1e1882475c7e68a4",
+        "d": true,
+        "mydb": "09110bf672e0483b",
+        "name": "insert etot",
+        "x": 460,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0c373af943e4af8e",
+        "type": "mysql",
+        "z": "1e1882475c7e68a4",
+        "mydb": "09110bf672e0483b",
+        "name": "insert etot",
+        "x": 620,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1302cff22c168a27",
+        "type": "ui_artlessgauge2",
+        "z": "1e1882475c7e68a4",
+        "group": "b8057ffb06f081d3",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "name": "linky",
+        "icon": "iconify-mdi:pylon 48px",
+        "label": "linky",
+        "unit": "Watts",
+        "layout": "radial",
+        "decimals": 0,
+        "differential": false,
+        "minmax": true,
+        "colorTrack": "#555555",
+        "style": "1",
+        "colorFromTheme": true,
+        "property": "payload",
+        "secondary": "secondary",
+        "inline": false,
+        "animate": true,
+        "log2": false,
+        "sectors": [
+            {
+                "val": 0,
+                "col": "#ff9900",
+                "t": "min",
+                "dot": 0
+            },
+            {
+                "val": 10000,
+                "col": "#ff9900",
+                "t": "max",
+                "dot": 0
+            }
+        ],
+        "lineWidth": 3,
+        "bgcolorFromTheme": false,
+        "diffCenter": "",
+        "x": 740,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "57f0728e8c2dbfe9",
+        "type": "e-mail",
+        "z": "1e1882475c7e68a4",
+        "server": "smtp.free.fr",
+        "port": "465",
+        "authtype": "BASIC",
+        "saslformat": true,
+        "token": "oauth2Response.access_token",
+        "secure": true,
+        "tls": true,
+        "name": "julienbourgeois56@free.fr",
+        "dname": "",
+        "x": 1020,
+        "y": 60,
         "wires": []
     }
 ]
