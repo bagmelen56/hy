@@ -2,7 +2,7 @@
     {
         "id": "8cfc727d22e45b7b",
         "type": "tab",
-        "label": "Capteur presence SONOFF",
+        "label": "detec. pres. SONOFF",
         "disabled": false,
         "info": "",
         "env": []
@@ -203,6 +203,37 @@
         "closeMsg": {},
         "willTopic": "",
         "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "8dfdc74d6a736590",
+        "type": "mqtt-broker",
+        "name": "rap pi 2",
+        "broker": "192.168.1.38",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
         "willPayload": "",
         "willMsg": {},
         "userProps": "",
@@ -1570,6 +1601,7 @@
         "id": "db9c8c88b209a0ea",
         "type": "mqtt in",
         "z": "8b2bc5a38cf3f145",
+        "d": true,
         "name": "raspb tasmota panneau solaire",
         "topic": "tele/tasmota_179AB0/SENSOR",
         "qos": "0",
@@ -1582,11 +1614,7 @@
         "x": 170,
         "y": 120,
         "wires": [
-            [
-                "76bf4d039fa7e8c0",
-                "609030d9f05f38d0",
-                "ea1202d75ce97a19"
-            ]
+            []
         ]
     },
     {
@@ -1616,7 +1644,7 @@
         "type": "debug",
         "z": "8b2bc5a38cf3f145",
         "name": "tasmota solaire",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": true,
@@ -1754,5 +1782,28 @@
         "x": 410,
         "y": 480,
         "wires": []
+    },
+    {
+        "id": "9b1f43a92f6c2192",
+        "type": "mqtt in",
+        "z": "8b2bc5a38cf3f145",
+        "name": "rasp pi 2 tasmota solaire",
+        "topic": "tele/tasmota_179AB0/SENSOR",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "8dfdc74d6a736590",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 180,
+        "wires": [
+            [
+                "609030d9f05f38d0",
+                "76bf4d039fa7e8c0",
+                "ea1202d75ce97a19"
+            ]
+        ]
     }
 ]
