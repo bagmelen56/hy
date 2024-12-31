@@ -240,16 +240,32 @@
         "sessionExpiry": ""
     },
     {
+        "id": "4e528085.a1bfa",
+        "type": "ui_tab",
+        "name": "Tab",
+        "icon": "dashboard",
+        "order": 0
+    },
+    {
+        "id": "a6e358b.672ffa8",
+        "type": "ui_group",
+        "name": "LED Testing",
+        "tab": "4e528085.a1bfa",
+        "order": 1,
+        "disp": true,
+        "width": "4"
+    },
+    {
         "id": "ef6a5f4f899b1665",
         "type": "ui_text",
         "z": "8cfc727d22e45b7b",
         "group": "b8057ffb06f081d3",
         "order": 6,
-        "width": 2,
-        "height": 2,
+        "width": "6",
+        "height": "1",
         "name": "bureau Julien",
-        "label": "iconify-ic:baseline-solar-power 48px",
-        "format": "{{msg.payload.occupancy}}",
+        "label": "pJ",
+        "format": "{{msg.payload.value}}",
         "layout": "col-center",
         "className": "",
         "style": false,
@@ -265,7 +281,7 @@
         "type": "mqtt in",
         "z": "8cfc727d22e45b7b",
         "name": "mqtt presence bureau Julien",
-        "topic": "zigbee2mqtt/PresenceBureauJulien",
+        "topic": "zigbee2mqtt/0x00124b002fa988e3",
         "qos": "0",
         "datatype": "json",
         "broker": "ece408675f10c1f2",
@@ -273,12 +289,16 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 200,
-        "y": 100,
+        "x": 120,
+        "y": 60,
         "wires": [
             [
                 "aa1c0a840f75e3b5",
-                "ef6a5f4f899b1665"
+                "a8a3d90a445dfa16",
+                "88f11d348fed8516",
+                "b89e09c26ca71da1",
+                "3cf6882bbf868bef",
+                "b85f15e9788381bd"
             ]
         ]
     },
@@ -287,7 +307,7 @@
         "type": "debug",
         "z": "8cfc727d22e45b7b",
         "name": "presence",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": true,
@@ -297,6 +317,248 @@
         "statusType": "auto",
         "x": 540,
         "y": 160,
+        "wires": []
+    },
+    {
+        "id": "a8a3d90a445dfa16",
+        "type": "ui_led2",
+        "z": "8cfc727d22e45b7b",
+        "order": 6,
+        "group": "b8057ffb06f081d3",
+        "width": "6",
+        "height": "1",
+        "label": "passage bureau julien",
+        "property": "payload.occupancy",
+        "labelPlacement": "left",
+        "labelAlignment": "right",
+        "colorForValue": [
+            {
+                "color": "#ffffff",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#ffa500",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#ffffff",
+                "value": "\"false\"",
+                "valueType": "str"
+            },
+            {
+                "color": "#ffa500",
+                "value": "\"true\"",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": true,
+        "shape": "circle",
+        "showGlow": false,
+        "name": "passage bureau Julien",
+        "x": 600,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "88f11d348fed8516",
+        "type": "function",
+        "z": "8cfc727d22e45b7b",
+        "name": "function 1",
+        "func": "msg.payload = {value:msg.payload.occupancy, srvtime:Date.now()};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 60,
+        "wires": [
+            [
+                "ef6a5f4f899b1665"
+            ]
+        ]
+    },
+    {
+        "id": "b89e09c26ca71da1",
+        "type": "ui_text",
+        "z": "8cfc727d22e45b7b",
+        "d": true,
+        "group": "b8057ffb06f081d3",
+        "order": 6,
+        "width": 2,
+        "height": 2,
+        "name": "pres bureau Julien",
+        "label": "presence BJ",
+        "format": "{{msg.payload.occupancy}}",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 330,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "24bfd4e4463d1831",
+        "type": "ui_text",
+        "z": "8cfc727d22e45b7b",
+        "group": "b8057ffb06f081d3",
+        "order": 6,
+        "width": "6",
+        "height": "2",
+        "name": "timeJulien",
+        "label": "dernier passage",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 700,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "05784e1d0c884d6b",
+        "type": "function",
+        "z": "8cfc727d22e45b7b",
+        "name": "Format date",
+        "func": "const dateNow = {'payload': formatDate()}\n\n\nfunction formatDate(){\n//29 Aug 2021 06:15:36\n    let date = new Date();\n    let year = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);\n    let month  = new Intl.DateTimeFormat('en', { month: 'short' }).format(date);\n    let day = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);\n    let time = date.toLocaleTimeString('en-US', { hour12: false });\n    return `${day} ${month} ${year} ${time}`;\n}\n\nreturn dateNow",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 400,
+        "wires": [
+            [
+                "24bfd4e4463d1831",
+                "381b0538370f55b4"
+            ]
+        ]
+    },
+    {
+        "id": "5d65b0583e8c1f67",
+        "type": "inject",
+        "z": "8cfc727d22e45b7b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 150,
+        "y": 380,
+        "wires": [
+            [
+                "05784e1d0c884d6b"
+            ]
+        ]
+    },
+    {
+        "id": "381b0538370f55b4",
+        "type": "debug",
+        "z": "8cfc727d22e45b7b",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 680,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "3cf6882bbf868bef",
+        "type": "switch",
+        "z": "8cfc727d22e45b7b",
+        "name": "",
+        "property": "payload.occupancy",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "true",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "true",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 220,
+        "y": 320,
+        "wires": [
+            [
+                "05784e1d0c884d6b"
+            ],
+            [
+                "05784e1d0c884d6b"
+            ]
+        ]
+    },
+    {
+        "id": "b85f15e9788381bd",
+        "type": "function",
+        "z": "8cfc727d22e45b7b",
+        "name": "Format date",
+        "func": "const dateNow = {'payload': formatDate()}\n\n\nfunction formatDate(){\n//29 Aug 2021 06:15:36\n    let date = new Date();\n    let year = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);\n    let month  = new Intl.DateTimeFormat('en', { month: 'short' }).format(date);\n    let day = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);\n    let time = date.toLocaleTimeString('en-US', { hour12: false });\n    return `${day} ${month} ${year} ${time}`;\n}\n\nreturn dateNow",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 500,
+        "wires": [
+            [
+                "ba5879994f56f86c"
+            ]
+        ]
+    },
+    {
+        "id": "ba5879994f56f86c",
+        "type": "ui_text",
+        "z": "8cfc727d22e45b7b",
+        "group": "b8057ffb06f081d3",
+        "order": 6,
+        "width": "6",
+        "height": "2",
+        "name": "timeJulien",
+        "label": "dernier chgt etat",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 640,
+        "y": 480,
         "wires": []
     },
     {
@@ -969,6 +1231,7 @@
         "id": "ba70b988ee9c54ad",
         "type": "ui_template",
         "z": "1e1882475c7e68a4",
+        "d": true,
         "group": "b8057ffb06f081d3",
         "name": "template icone",
         "order": 5,
@@ -1007,6 +1270,7 @@
         "id": "ee778b748b798f30",
         "type": "mysql",
         "z": "1e1882475c7e68a4",
+        "d": true,
         "mydb": "09110bf672e0483b",
         "name": "select previous",
         "x": 1440,
@@ -1022,6 +1286,7 @@
         "id": "3171918ea8cb57a5",
         "type": "mysql",
         "z": "1e1882475c7e68a4",
+        "d": true,
         "mydb": "09110bf672e0483b",
         "name": "insert etot",
         "x": 2360,
@@ -1047,6 +1312,7 @@
         "id": "0c373af943e4af8e",
         "type": "mysql",
         "z": "1e1882475c7e68a4",
+        "d": true,
         "mydb": "09110bf672e0483b",
         "name": "insert etot",
         "x": 620,
@@ -1104,6 +1370,7 @@
         "id": "57f0728e8c2dbfe9",
         "type": "e-mail",
         "z": "1e1882475c7e68a4",
+        "d": true,
         "server": "smtp.free.fr",
         "port": "465",
         "authtype": "BASIC",
@@ -1363,6 +1630,7 @@
         "id": "8d83cfee66293605",
         "type": "mysql",
         "z": "8b2bc5a38cf3f145",
+        "d": true,
         "mydb": "09110bf672e0483b",
         "name": "select previous",
         "x": 1180,
@@ -1475,6 +1743,7 @@
         "id": "b288031a14a4fcb3",
         "type": "mysql",
         "z": "8b2bc5a38cf3f145",
+        "d": true,
         "mydb": "09110bf672e0483b",
         "name": "insert panneau",
         "x": 1960,
@@ -1644,7 +1913,7 @@
         "type": "debug",
         "z": "8b2bc5a38cf3f145",
         "name": "tasmota solaire",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": true,
